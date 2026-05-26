@@ -4,10 +4,23 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "ES2020",
-    "types": ["node", "mocha"],
+    "types": [
+      "node",
+      "mocha"
+    ],
     "outDir": "dist",
     "noEmit": true
   },
-  "include": ["contracts", "scripts", "test", "hardhat.config.ts"],
-  "exclude": ["node_modules", "dist", "artifacts", "cache", "typechain-types"]
+  "include": [
+    "scripts",
+    "hardhat.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "artifacts",
+    "cache",
+    "typechain-types",
+    "test"
+  ]
 }
