@@ -20,6 +20,7 @@
     "@supabase/supabase-js": "^2.86.0",
     "@tanstack/react-query": "^5.90.12",
     "@upstash/redis": "^1.35.8",
+    "framer-motion": "^12.40.0",
     "next": "^15.5.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -29,10 +30,12 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
     "@types/node": "^25.0.0",
     "@types/react": "^18.3.27",
     "@types/react-dom": "^18.3.7",
     "autoprefixer": "^10.4.22",
+    "playwright": "^1.60.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.18",
     "typescript": "^5.9.3"

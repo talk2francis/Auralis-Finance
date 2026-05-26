@@ -1,3 +1,13 @@
-import { AllocationDonut, Card, CardContent, CardHeader, CardTitle, KpiStat, RatingSeal } from "@auralis/ui";
+import { Card, CardContent, CardHeader, CardTitle, RatingSeal, StateWrapper } from "@auralis/ui";
+import { CountUp, MotionDonut } from "../../../../components/MotionPrimitives";
 
-export default function Dashboard() { return <div><h1 className="font-display text-4xl">Dashboard</h1><div className="mt-6 grid gap-4 md:grid-cols-4"><KpiStat label="Total value" value="$128,420" /><KpiStat label="Blended APY" value="5.42%" /><KpiStat label="Auralis Risk" value="31" /><KpiStat label="Liquidity" value="$42.8M" /></div><Card className="mt-6"><CardHeader><CardTitle>Allocation</CardTitle></CardHeader><CardContent className="flex items-center gap-6"><AllocationDonut percent={64}/><div className="flex items-center gap-3"><RatingSeal grade="A"/> USDY position is within guardrails.</div></CardContent></Card></div>; }
+const kpis = [
+  ["Total value", "$128,420"],
+  ["Blended APY", "5.42%"],
+  ["Auralis Risk", "31"],
+  ["Liquidity", "$42.8M"],
+] as const;
+
+export default function Dashboard() {
+  return <div><h1 className="font-display text-4xl">Dashboard</h1><StateWrapper status="populated"><div className="mt-6 grid gap-4 md:grid-cols-4">{kpis.map(([label, value]) => <Card className="p-4" key={label}><div className="text-xs uppercase tracking-wide text-[var(--text-secondary)]">{label}</div><div className="mt-1 font-display text-2xl text-[var(--ink)]"><CountUp value={value} /></div></Card>)}</div></StateWrapper><Card className="mt-6"><CardHeader><CardTitle>Allocation</CardTitle></CardHeader><CardContent><StateWrapper status="populated"><div className="flex flex-col gap-6 sm:flex-row sm:items-center"><MotionDonut percent={64} label="USDY allocation"/><div className="flex items-center gap-3"><RatingSeal grade="A"/> USDY position is within guardrails.</div></div></StateWrapper></CardContent></Card></div>;
+}

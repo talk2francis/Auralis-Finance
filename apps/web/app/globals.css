@@ -9,13 +9,19 @@
   --surface-muted: #F4F5F3;
   --border: #E4E6E2;
   --text-secondary: #5B6472;
-  --teal: #0E9E8C;
+  --teal: #087568;
   --teal-wash: #EAF6F4;
-  --emerald: #0F9D58;
-  --amber: #D9870B;
-  --rose: #D64550;
-  --brass: #B08442;
+  --emerald: #087A43;
+  --amber: #9A6207;
+  --rose: #B4232E;
+  --brass: #7A5524;
   --radius-card: 14px;
   --shadow-soft: 0 18px 48px rgba(11, 18, 32, 0.08);
 }
 body { background: var(--paper); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+a { text-underline-offset: 3px; }
+button, a, input, textarea, select { transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}
