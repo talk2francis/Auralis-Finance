@@ -45,6 +45,22 @@ function goodParams(overrides: Record<string, unknown> = {}) {
 }
 
 describe("AuralisRatingRegistry", () => {
+  it("regression: permissionless ratings cannot overwrite latest official rating", async () => {
+    const { owner, publisher, user, reg } = await deployRating();
+    const asset = id("USDY:official-lock");
+    const officialHash = id("official:locked");
+    const permissionlessHash = id("permissionless:attempted-overwrite");
+
+    await reg.connect(owner).setPublisher(publisher.address, true);
+    await reg.connect(publisher).anchorRating(asset, officialHash, 3, 28, 100, "ipfs://official");
+    await reg.connect(user).anchorRating(asset, permissionlessHash, 7, 90, 100, "ipfs://permissionless");
+
+    expect((await reg.latestRating(asset)).ratingHash).to.equal(officialHash);
+    expect((await reg.latestOfficialRating(asset)).ratingHash).to.equal(officialHash);
+    expect(await reg.verifyRating(asset, permissionlessHash)).to.equal(false);
+    expect(await reg.verifyRating(asset, officialHash)).to.equal(true);
+  });
+
   it("anchors unofficial and official ratings without letting unofficial overwrite latest official", async () => {
     const { owner, publisher, user, reg } = await deployRating();
     const asset = id("USDY");
@@ -91,6 +107,17 @@ describe("AuralisRatingRegistry", () => {
 });
 
 describe("AuralisComplianceAttestor", () => {
+  it("regression: duplicate compliance check hashes are rejected", async () => {
+    const { subject, att } = await deployAttestor();
+    const assetClass = id("US_TREASURY_RWA:duplicate-check");
+    const checkHash = id("compliance:duplicate-check");
+
+    await att.connect(subject).mintAttestation(subject.address, assetClass, 1, checkHash, id("NG"), "ipfs://check", DAY);
+    await expect(
+      att.connect(subject).mintAttestation(subject.address, assetClass, 1, checkHash, id("NG"), "ipfs://check-duplicate", DAY)
+    ).to.be.revertedWith("AURALIS: duplicate check");
+  });
+
   it("mints self and approved attestations, enforces fees, duplicate checks, expiry, revoke, and withdraw", async () => {
     const { owner, subject, attester, receiver, att } = await deployAttestor();
     const assetClass = id("US_TREASURY_RWA");
@@ -174,6 +201,26 @@ describe("AuralisPolicyGuard", () => {
     expect(await guard.nextRebalanceId()).to.equal(2);
     const blocked = goodParams({ topAssetBps: 2600 });
     await expect(guard.connect(user).tryExecuteRebalance(blocked)).to.emit(guard, "RebalanceBlocked").withArgs(user.address, "max per-asset exceeded");
+  });
+
+  it("regression: blocked rebalances have a non-reverting event path", async () => {
+    const { user, guard } = await withPolicy();
+    const blocked = goodParams({ topAssetBps: 2600 });
+
+    await expect(guard.connect(user).tryExecuteRebalance(blocked))
+      .to.emit(guard, "RebalanceBlocked")
+      .withArgs(user.address, "max per-asset exceeded");
+    expect(await guard.nextRebalanceId()).to.equal(1);
+  });
+
+  it("regression: human approval threshold is enforced", async () => {
+    const { user, guard } = await withPolicy();
+    const thresholdGated = goodParams({ notionalValue: ethers.parseEther("1001"), humanApproved: false });
+
+    await expect(guard.connect(user).executeRebalance(thresholdGated)).to.be.revertedWith("AURALIS: human approval required");
+    expect(await guard.checkRebalance(user.address, thresholdGated)).to.deep.equal([false, "human approval required"]);
+
+    await expect(guard.connect(user).executeRebalance({ ...thresholdGated, humanApproved: true })).to.emit(guard, "RebalanceExecuted");
   });
 
   it("covers every guardrail and invalid policy/proposal branch", async () => {
