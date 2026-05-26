@@ -13,7 +13,8 @@
   "types": "./src/index.ts",
   "dependencies": {
     "@auralis/types": "workspace:*",
-    "viem": "^2.40.3"
+    "viem": "^2.40.3",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "vitest": "^4.1.7",
