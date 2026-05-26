@@ -10,3 +10,5 @@ packages/contracts/.env
 packages/contracts/artifacts
 packages/contracts/cache
 packages/contracts/typechain-types
+packages/contracts/coverage.json
+packages/contracts/coverage
