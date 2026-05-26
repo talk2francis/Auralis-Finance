@@ -4,9 +4,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "echo build @auralis/types",
+    "build": "tsc --noEmit",
     "lint": "echo lint @auralis/types",
-    "test": "echo test @auralis/types",
-    "typecheck": "echo typecheck @auralis/types"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "vitest": "^4.1.7"
   }
 }
