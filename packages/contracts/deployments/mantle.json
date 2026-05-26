@@ -1,0 +1,42 @@
+{
+  "network": "mantle",
+  "chainId": 5000,
+  "deployedAt": "2026-05-26T19:43:41.209Z",
+  "deployer": "0x0C1Fc3B41717a068f836e1B737F3cB0251789783",
+  "owner": "0x0C1Fc3B41717a068f836e1B737F3cB0251789783",
+  "finalBalanceMnt": "2.248775028976300279",
+  "contracts": {
+    "AuralisAgentRegistry": "0x2939Df04CAfcd310f764d928559f2BF9F284a2f4",
+    "AuralisRatingRegistry": "0xF59c877C83E6519A606810b4d8DA52Ccf34d5A22",
+    "AuralisComplianceAttestor": "0xe4eE2b0984FF9F604bF03d0521808037Ea5d3b34",
+    "AuralisPolicyGuard": "0xFaD41c7d7e777853CF7aC04641Df0D88B27A7b0E"
+  },
+  "transactions": {
+    "AuralisAgentRegistry": "0x456026e84248b747797a489543fa3e6bee7d72f5a92e657a5ed1c16bae5d358f",
+    "AuralisRatingRegistry": "0x10d4e9fb30bd95fb7a9cf47d4a4d39ceabf79746799f7bf58c30632db2d4cc29",
+    "AuralisComplianceAttestor": "0x8cc3636039fc1485c309e2f67e5962c8bc7aa135937d42b5473f08e3f069d91e",
+    "AuralisPolicyGuard": "0xcb49015d3ce2a6b5418d860cbf1b99dc7d7006f340f1a05c4a8f2f1ec038f2d3"
+  },
+  "receipts": {
+    "AuralisAgentRegistry": {
+      "status": 1,
+      "gasUsed": "1611432",
+      "contractAddress": "0x2939Df04CAfcd310f764d928559f2BF9F284a2f4"
+    },
+    "AuralisRatingRegistry": {
+      "status": 1,
+      "gasUsed": "1449649",
+      "contractAddress": "0xF59c877C83E6519A606810b4d8DA52Ccf34d5A22"
+    },
+    "AuralisComplianceAttestor": {
+      "status": 1,
+      "gasUsed": "1378821",
+      "contractAddress": "0xe4eE2b0984FF9F604bF03d0521808037Ea5d3b34"
+    },
+    "AuralisPolicyGuard": {
+      "status": 1,
+      "gasUsed": "1062972",
+      "contractAddress": "0xFaD41c7d7e777853CF7aC04641Df0D88B27A7b0E"
+    }
+  }
+}
