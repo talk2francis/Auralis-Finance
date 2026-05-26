@@ -1,24 +1,60 @@
 import { createPublicClient, http, type Address } from "viem";
 import { mantle } from "./chain";
+import { mantleDeployment } from "./deployments";
+
+function envAddress(value: string | undefined, fallback: Address): Address {
+  return value && value.trim().length > 0 ? (value as Address) : fallback;
+}
 
 export const addresses = {
-  ratingRegistry: process.env.NEXT_PUBLIC_AURALIS_RATING_REGISTRY as Address | undefined,
-  complianceAttestor: process.env.NEXT_PUBLIC_AURALIS_COMPLIANCE_ATTESTOR as Address | undefined,
-  agentRegistry: process.env.NEXT_PUBLIC_AURALIS_AGENT_REGISTRY as Address | undefined,
-  policyGuard: process.env.NEXT_PUBLIC_AURALIS_POLICY_GUARD as Address | undefined,
+  ratingRegistry: envAddress(
+    process.env.NEXT_PUBLIC_AURALIS_RATING_REGISTRY,
+    mantleDeployment.contracts.ratingRegistry,
+  ),
+  complianceAttestor: envAddress(
+    process.env.NEXT_PUBLIC_AURALIS_COMPLIANCE_ATTESTOR,
+    mantleDeployment.contracts.complianceAttestor,
+  ),
+  agentRegistry: envAddress(
+    process.env.NEXT_PUBLIC_AURALIS_AGENT_REGISTRY,
+    mantleDeployment.contracts.agentRegistry,
+  ),
+  policyGuard: envAddress(
+    process.env.NEXT_PUBLIC_AURALIS_POLICY_GUARD,
+    mantleDeployment.contracts.policyGuard,
+  ),
 };
 
 export const publicClient = createPublicClient({ chain: mantle, transport: http() });
 
 export const ratingRegistryAbi = [
   { type: "function", name: "verifyRating", stateMutability: "view", inputs: [{ name: "assetId", type: "bytes32" }, { name: "ratingHash", type: "bytes32" }], outputs: [{ type: "bool" }] },
-  { type: "function", name: "anchorRating", stateMutability: "nonpayable", inputs: [{ name: "assetId", type: "bytes32" }, { name: "ratingHash", type: "bytes32" }, { name: "grade", type: "uint8" }, { name: "riskScore", type: "uint8" }, { name: "methodologyVersion", type: "uint16" }, { name: "metadataURI", type: "string" }], outputs: [{ type: "bool" }] },
+  { type: "function", name: "ratingHistoryLength", stateMutability: "view", inputs: [{ name: "assetId", type: "bytes32" }], outputs: [{ type: "uint256" }] },
+  { type: "function", name: "anchorRating", stateMutability: "nonpayable", inputs: [{ name: "assetId", type: "bytes32" }, { name: "ratingHash", type: "bytes32" }, { name: "grade", type: "uint8" }, { name: "riskScore", type: "uint8" }, { name: "methodologyVersion", type: "uint16" }, { name: "metadataURI", type: "string" }], outputs: [{ name: "official", type: "bool" }] },
+  { type: "function", name: "logDecision", stateMutability: "nonpayable", inputs: [{ name: "decisionHash", type: "bytes32" }, { name: "actionType", type: "bytes32" }, { name: "riskScore", type: "uint8" }, { name: "metadataURI", type: "string" }], outputs: [{ name: "decisionId", type: "uint256" }] },
 ] as const;
 
 export const complianceAttestorAbi = [
   { type: "function", name: "isEligible", stateMutability: "view", inputs: [{ name: "wallet", type: "address" }, { name: "assetClassId", type: "bytes32" }], outputs: [{ type: "bool" }] },
+  { type: "function", name: "getVerdict", stateMutability: "view", inputs: [{ name: "wallet", type: "address" }, { name: "assetClassId", type: "bytes32" }], outputs: [{ name: "verdict", type: "uint8" }, { name: "active", type: "bool" }] },
+  { type: "function", name: "mintAttestation", stateMutability: "payable", inputs: [{ name: "subject", type: "address" }, { name: "assetClassId", type: "bytes32" }, { name: "verdict", type: "uint8" }, { name: "checkHash", type: "bytes32" }, { name: "jurisdictionTag", type: "bytes32" }, { name: "metadataURI", type: "string" }, { name: "validitySeconds", type: "uint64" }], outputs: [{ name: "id", type: "uint256" }] },
+  { type: "function", name: "revoke", stateMutability: "nonpayable", inputs: [{ name: "id", type: "uint256" }], outputs: [] },
+] as const;
+
+const rebalanceParamComponents = [
+  { name: "portfolioHash", type: "bytes32" },
+  { name: "topAssetBps", type: "uint16" },
+  { name: "topProtocolBps", type: "uint16" },
+  { name: "slippageBps", type: "uint16" },
+  { name: "aiConfidence", type: "uint8" },
+  { name: "liquidityScore", type: "uint16" },
+  { name: "notionalValue", type: "uint256" },
+  { name: "humanApproved", type: "bool" },
+  { name: "metadataURI", type: "string" },
 ] as const;
 
 export const policyGuardAbi = [
-  { type: "function", name: "checkRebalance", stateMutability: "view", inputs: [{ name: "user", type: "address" }, { name: "p", type: "tuple", components: [] }], outputs: [{ type: "bool" }, { type: "string" }] },
+  { type: "function", name: "checkRebalance", stateMutability: "view", inputs: [{ name: "user", type: "address" }, { name: "p", type: "tuple", components: rebalanceParamComponents }], outputs: [{ name: "ok", type: "bool" }, { name: "reason", type: "string" }] },
+  { type: "function", name: "setPolicy", stateMutability: "nonpayable", inputs: [{ name: "maxPerAssetBps", type: "uint16" }, { name: "maxPerProtocolBps", type: "uint16" }, { name: "maxSlippageBps", type: "uint16" }, { name: "minConfidence", type: "uint8" }, { name: "minLiquidityScore", type: "uint16" }, { name: "cooldownSeconds", type: "uint32" }, { name: "humanApprovalThreshold", type: "uint256" }], outputs: [] },
+  { type: "function", name: "tryExecuteRebalance", stateMutability: "nonpayable", inputs: [{ name: "p", type: "tuple", components: rebalanceParamComponents }], outputs: [{ name: "ok", type: "bool" }, { name: "rebalanceId", type: "uint256" }, { name: "reason", type: "string" }] },
 ] as const;

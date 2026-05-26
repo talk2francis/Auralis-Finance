@@ -11,14 +11,14 @@ move user capital autonomously.
 
 ## Deployment addresses
 
-> Filled in after the Phase-2 mainnet deploy (Day 15). Mirror this table into the root `README.md`.
+> Corrected mainnet deployment. The earlier deployment from commit `f4be00e` is abandoned.
 
-| Contract | Address | Explorer |
-|---|---|---|
-| `AuralisAgentRegistry` | `0x…` | `https://explorer.mantle.xyz/address/0x…` |
-| `AuralisRatingRegistry` | `0x…` | `https://explorer.mantle.xyz/address/0x…` |
-| `AuralisComplianceAttestor` | `0x…` | `https://explorer.mantle.xyz/address/0x…` |
-| `AuralisPolicyGuard` | `0x…` | `https://explorer.mantle.xyz/address/0x…` |
+| Contract | Address | Explorer | Sourcify |
+|---|---|---|---|
+| `AuralisAgentRegistry` | `0x2939Df04CAfcd310f764d928559f2BF9F284a2f4` | [Explorer](https://explorer.mantle.xyz/address/0x2939Df04CAfcd310f764d928559f2BF9F284a2f4) | [Full match](https://repo.sourcify.dev/contracts/full_match/5000/0x2939Df04CAfcd310f764d928559f2BF9F284a2f4/) |
+| `AuralisRatingRegistry` | `0xF59c877C83E6519A606810b4d8DA52Ccf34d5A22` | [Explorer](https://explorer.mantle.xyz/address/0xF59c877C83E6519A606810b4d8DA52Ccf34d5A22) | [Full match](https://repo.sourcify.dev/contracts/full_match/5000/0xF59c877C83E6519A606810b4d8DA52Ccf34d5A22/) |
+| `AuralisComplianceAttestor` | `0xe4eE2b0984FF9F604bF03d0521808037Ea5d3b34` | [Explorer](https://explorer.mantle.xyz/address/0xe4eE2b0984FF9F604bF03d0521808037Ea5d3b34) | [Full match](https://repo.sourcify.dev/contracts/full_match/5000/0xe4eE2b0984FF9F604bF03d0521808037Ea5d3b34/) |
+| `AuralisPolicyGuard` | `0xFaD41c7d7e777853CF7aC04641Df0D88B27A7b0E` | [Explorer](https://explorer.mantle.xyz/address/0xFaD41c7d7e777853CF7aC04641Df0D88B27A7b0E) | [Full match](https://repo.sourcify.dev/contracts/full_match/5000/0xFaD41c7d7e777853CF7aC04641Df0D88B27A7b0E/) |
 
 ---
 
@@ -133,8 +133,7 @@ npx hardhat verify --network mantle <ADDRESS> <CONSTRUCTOR_ARGS>
 ```
 
 Addresses are written to `deployments/<network>.json` and consumed by `apps/web` chain
-config. Verify each contract on Mantle Explorer (Blockscout) — verification is a **hard gate**
-for the Deployment Award.
+config. Mantle Explorer / Blockscout API returned an HTML/JSON response during Hardhat verification, so the verified source fallback is Sourcify. All four contracts are `full_match` verified on Sourcify for chain `5000`; Explorer links remain included for transaction/address evidence.
 
 **Key hygiene:** `DEPLOYER_PRIVATE_KEY` lives only in a local `.env`, is used once, and is
 removed afterward. It is never in Vercel, never in the worker, never in CI. CI runs
