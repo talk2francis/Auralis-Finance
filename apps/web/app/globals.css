@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #0B1220;
+  --paper: #FBFBF9;
+  --surface: #FFFFFF;
+  --surface-muted: #F4F5F3;
+  --border: #E4E6E2;
+  --text-secondary: #5B6472;
+  --teal: #0E9E8C;
+  --teal-wash: #EAF6F4;
+  --emerald: #0F9D58;
+  --amber: #D9870B;
+  --rose: #D64550;
+  --brass: #B08442;
+  --radius-card: 14px;
+  --shadow-soft: 0 18px 48px rgba(11, 18, 32, 0.08);
+}
+body { background: var(--paper); color: var(--ink); }

@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { Card, CardContent, RatingSeal } from "@auralis/ui";
+const rows = [["usdy","USDY","4.85%","A"],["meth","mETH","3.15%","A"],["usde","USDe","8.40%","BBB"]];
+export default function Opportunities(){return <div><h1 className="font-display text-4xl">Opportunities</h1><div className="mt-6 grid gap-3">{rows.map(([id,symbol,apy,grade])=><Card key={id}><CardContent className="flex items-center justify-between p-4"><div className="flex items-center gap-3"><RatingSeal grade={grade} size="sm"/><div><div className="font-medium">{symbol}</div><div className="text-sm text-[var(--text-secondary)]">Risk-adjusted yield opportunity</div></div></div><div>{apy}</div><Link className="text-[var(--teal)]" href={`/app/opportunities/${id}`}>View</Link></CardContent></Card>)}</div></div>}

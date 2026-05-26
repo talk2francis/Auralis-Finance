@@ -13,3 +13,5 @@ packages/contracts/typechain-types
 packages/contracts/coverage.json
 packages/contracts/coverage
 .turbo
+
+*.tsbuildinfo

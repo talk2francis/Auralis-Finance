@@ -1,0 +1,3 @@
+import { AllocationDonut, Card, CardContent, CardHeader, CardTitle, KpiStat, RatingSeal } from "@auralis/ui";
+
+export default function Dashboard() { return <div><h1 className="font-display text-4xl">Dashboard</h1><div className="mt-6 grid gap-4 md:grid-cols-4"><KpiStat label="Total value" value="$128,420" /><KpiStat label="Blended APY" value="5.42%" /><KpiStat label="Auralis Risk" value="31" /><KpiStat label="Liquidity" value="$42.8M" /></div><Card className="mt-6"><CardHeader><CardTitle>Allocation</CardTitle></CardHeader><CardContent className="flex items-center gap-6"><AllocationDonut percent={64}/><div className="flex items-center gap-3"><RatingSeal grade="A"/> USDY position is within guardrails.</div></CardContent></Card></div>; }
