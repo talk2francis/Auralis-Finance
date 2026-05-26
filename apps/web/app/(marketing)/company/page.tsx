@@ -1,0 +1,1 @@
+export default function Company(){return <main className="mx-auto max-w-4xl px-4 py-16"><h1 className="font-display text-5xl">Company</h1><p className="mt-4 text-[var(--text-secondary)]">Auralis is building compliance-aware AI infrastructure for tokenized real-world assets on Mantle.</p></main>}

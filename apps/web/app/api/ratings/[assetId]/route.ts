@@ -1,0 +1,2 @@
+import { getRatingWithAI, json, assertRateLimit } from "../../../../lib/api";
+export async function GET(req: Request, { params }: { params: Promise<{ assetId: string }> }) { const limited = await assertRateLimit(req); if (limited) return limited; const { assetId } = await params; const rating = await getRatingWithAI(assetId); return rating ? json(rating) : json({ error: "not_found" }, { status: 404 }); }

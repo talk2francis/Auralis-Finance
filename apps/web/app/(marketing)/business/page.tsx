@@ -1,0 +1,1 @@
+export default function Business(){return <main className="mx-auto max-w-4xl px-4 py-16"><h1 className="font-display text-5xl">Business</h1><p className="mt-4 text-[var(--text-secondary)]">For issuers, desks, wallets, and protocols that need auditable RWA risk and eligibility workflows.</p></main>}

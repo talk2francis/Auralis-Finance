@@ -1,0 +1,3 @@
+import { getServerDb } from "../../../../lib/db";
+import { json, mockDecisions, WalletSchema } from "../../../../lib/api";
+export async function GET(_: Request, { params }: { params: Promise<{ wallet: string }> }) { const { wallet } = await params; const parsed = WalletSchema.parse(wallet); const db = getServerDb(); if (!db) return json(mockDecisions(parsed)); const { data, error } = await db.from("decisions").select("decision_json").eq("wallet", parsed).order("created_at", { ascending: false }).limit(50); if (error) return json({ error: error.message }, { status: 500 }); return json(data?.map((r) => r.decision_json) ?? []); }

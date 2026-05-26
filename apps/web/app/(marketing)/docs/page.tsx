@@ -1,0 +1,1 @@
+export default function Docs(){return <main className="mx-auto max-w-4xl px-4 py-16"><h1 className="font-display text-5xl">Docs</h1><p className="mt-4 text-[var(--text-secondary)]">API: /api/ratings, /api/ratings/:assetId, /api/compliance/scan, /api/portfolio/:wallet, /api/simulate, /api/copilot, /api/verify/rating.</p></main>}

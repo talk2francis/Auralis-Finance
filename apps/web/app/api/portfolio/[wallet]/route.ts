@@ -1,0 +1,2 @@
+import { assertRateLimit, buildPortfolio, getRatings, json, WalletSchema } from "../../../../lib/api";
+export async function GET(req: Request, { params }: { params: Promise<{ wallet: string }> }) { const { wallet } = await params; const parsed = WalletSchema.parse(wallet); const limited = await assertRateLimit(req, parsed); if (limited) return limited; return json(buildPortfolio(parsed, await getRatings())); }
