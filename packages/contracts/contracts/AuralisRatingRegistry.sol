@@ -57,6 +57,7 @@ contract AuralisRatingRegistry is Ownable, Pausable {
     uint256 public nextDecisionId = 1;
 
     mapping(bytes32 => Rating) public latestRating; // assetId => latest rating
+    mapping(bytes32 => Rating) public latestOfficialRating; // assetId => latest official rating
     mapping(bytes32 => Rating[]) private _ratingHistory; // assetId => history
     mapping(uint256 => Decision) public decisions; // decisionId => decision
     mapping(bytes32 => bool) public ratingHashUsed; // dedupe
@@ -147,6 +148,9 @@ contract AuralisRatingRegistry is Ownable, Pausable {
 
         ratingHashUsed[ratingHash] = true;
         latestRating[assetId] = r;
+        if (official) {
+            latestOfficialRating[assetId] = r;
+        }
         _ratingHistory[assetId].push(r);
 
         emit RatingAnchored(

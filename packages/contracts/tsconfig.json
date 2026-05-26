@@ -1,8 +1,13 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2020",
+    "types": ["node", "mocha"],
+    "outDir": "dist",
+    "noEmit": true
   },
-  "include": ["src", "test", "*.ts", "*.tsx"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["contracts", "scripts", "test", "hardhat.config.ts"],
+  "exclude": ["node_modules", "dist", "artifacts", "cache", "typechain-types"]
 }

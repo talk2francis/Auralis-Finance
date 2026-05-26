@@ -37,6 +37,7 @@ contract AuralisPolicyGuard is Ownable {
         uint8 aiConfidence; // AI confidence in the proposal (0..100)
         uint16 liquidityScore; // blended liquidity score of the proposal (0..100)
         uint256 notionalValue; // total value affected by the rebalance
+        bool humanApproved; // true when the user has reviewed threshold-gated proposal details
         string metadataURI; // ipfs:// URI of the full proposal
     }
 
@@ -127,6 +128,11 @@ contract AuralisPolicyGuard is Ownable {
         Policy memory pol = policyOf[user];
         if (!pol.exists) return (false, "no policy set");
         if (pol.paused) return (false, "policy paused");
+        if (p.portfolioHash == bytes32(0)) return (false, "empty portfolio hash");
+        if (p.topAssetBps > 10000 || p.topProtocolBps > 10000)
+            return (false, "bad proposal bps");
+        if (p.aiConfidence > 100 || p.liquidityScore > 100)
+            return (false, "bad proposal range");
         if (p.topAssetBps > pol.maxPerAssetBps)
             return (false, "max per-asset exceeded");
         if (p.topProtocolBps > pol.maxPerProtocolBps)
@@ -137,14 +143,20 @@ contract AuralisPolicyGuard is Ownable {
             return (false, "AI confidence too low");
         if (p.liquidityScore < pol.minLiquidityScore)
             return (false, "liquidity too low");
+        if (
+            pol.humanApprovalThreshold > 0 &&
+            p.notionalValue > pol.humanApprovalThreshold &&
+            !p.humanApproved
+        ) return (false, "human approval required");
         if (block.timestamp < lastRebalanceAt[user] + pol.cooldownSeconds)
             return (false, "rebalance cooldown active");
         return (true, "ok");
     }
 
     /// @notice Execute a guardrail-checked rebalance. USER-SIGNED ONLY.
-    /// @dev    Reverts if any guardrail is breached, recording a RebalanceBlocked
-    ///         event first. On success, records the rebalance on-chain as proof.
+    /// @dev    Reverts if any guardrail is breached. Use `tryExecuteRebalance`
+    ///         for a non-reverting path that persists a RebalanceBlocked event.
+    ///         On success, records the rebalance on-chain as proof.
     ///         Fund routing to whitelisted Mantle venues (Aave, Merchant Moe) is a
     ///         deliberate post-hackathon, audited extension — the hackathon build
     ///         proves the *decision and its guardrail compliance* on-chain.
@@ -153,16 +165,37 @@ contract AuralisPolicyGuard is Ownable {
     ) external returns (uint256 rebalanceId) {
         (bool ok, string memory reason) = checkRebalance(msg.sender, p);
         if (!ok) {
-            emit RebalanceBlocked(msg.sender, reason);
             revert(string.concat("AURALIS: ", reason));
         }
 
-        lastRebalanceAt[msg.sender] = uint64(block.timestamp);
+        rebalanceId = _recordRebalance(msg.sender, p);
+    }
+
+    /// @notice Non-reverting execution path for UIs/indexers that need persisted
+    ///         block events when a proposal fails deterministic guardrails.
+    function tryExecuteRebalance(
+        RebalanceParams calldata p
+    ) external returns (bool ok, uint256 rebalanceId, string memory reason) {
+        (ok, reason) = checkRebalance(msg.sender, p);
+        if (!ok) {
+            emit RebalanceBlocked(msg.sender, reason);
+            return (false, 0, reason);
+        }
+
+        rebalanceId = _recordRebalance(msg.sender, p);
+        return (true, rebalanceId, "ok");
+    }
+
+    function _recordRebalance(
+        address user,
+        RebalanceParams calldata p
+    ) internal returns (uint256 rebalanceId) {
+        lastRebalanceAt[user] = uint64(block.timestamp);
         rebalanceId = nextRebalanceId++;
 
         emit RebalanceExecuted(
             rebalanceId,
-            msg.sender,
+            user,
             p.portfolioHash,
             p.notionalValue,
             p.metadataURI
