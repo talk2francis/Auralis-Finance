@@ -1,0 +1,12 @@
+{
+  "name": "@auralis/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo build @auralis/worker",
+    "lint": "echo lint @auralis/worker",
+    "test": "echo test @auralis/worker",
+    "typecheck": "echo typecheck @auralis/worker"
+  }
+}

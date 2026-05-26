@@ -1,0 +1,12 @@
+{
+  "name": "@auralis/adapters",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo build @auralis/adapters",
+    "lint": "echo lint @auralis/adapters",
+    "test": "echo test @auralis/adapters",
+    "typecheck": "echo typecheck @auralis/adapters"
+  }
+}

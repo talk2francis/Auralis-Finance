@@ -1,0 +1,12 @@
+{
+  "name": "@auralis/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo build @auralis/ui",
+    "lint": "echo lint @auralis/ui",
+    "test": "echo test @auralis/ui",
+    "typecheck": "echo typecheck @auralis/ui"
+  }
+}
