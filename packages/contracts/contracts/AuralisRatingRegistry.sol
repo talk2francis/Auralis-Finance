@@ -147,9 +147,11 @@ contract AuralisRatingRegistry is Ownable, Pausable {
         });
 
         ratingHashUsed[ratingHash] = true;
-        latestRating[assetId] = r;
         if (official) {
+            latestRating[assetId] = r;
             latestOfficialRating[assetId] = r;
+        } else if (latestOfficialRating[assetId].ratingHash == bytes32(0)) {
+            latestRating[assetId] = r;
         }
         _ratingHistory[assetId].push(r);
 

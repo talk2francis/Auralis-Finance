@@ -57,12 +57,12 @@ describe("AuralisRatingRegistry", () => {
       .withArgs(asset, officialHash, 3, 28, publisher.address, true, "ipfs://official");
     await reg.connect(user).anchorRating(asset, unofficialHash, 4, 40, 100, "ipfs://user");
 
-    expect((await reg.latestRating(asset)).ratingHash).to.equal(unofficialHash);
+    expect((await reg.latestRating(asset)).ratingHash).to.equal(officialHash);
     expect((await reg.latestOfficialRating(asset)).ratingHash).to.equal(officialHash);
     expect(await reg.ratingHistoryLength(asset)).to.equal(2);
     expect((await reg.ratingAt(asset, 0)).official).to.equal(true);
-    expect(await reg.verifyRating(asset, unofficialHash)).to.equal(true);
-    expect(await reg.verifyRating(asset, officialHash)).to.equal(false);
+    expect(await reg.verifyRating(asset, unofficialHash)).to.equal(false);
+    expect(await reg.verifyRating(asset, officialHash)).to.equal(true);
   });
 
   it("rejects invalid ratings, duplicate ratings, bad decisions, and respects pause/access control", async () => {

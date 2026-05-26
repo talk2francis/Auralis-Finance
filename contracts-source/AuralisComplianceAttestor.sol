@@ -123,6 +123,7 @@ contract AuralisComplianceAttestor is Ownable, Pausable {
         require(assetClassId != bytes32(0), "AURALIS: empty class");
         require(verdict != Verdict.None, "AURALIS: bad verdict");
         require(checkHash != bytes32(0), "AURALIS: empty check");
+        require(!checkHashUsed[checkHash], "AURALIS: duplicate check");
         require(
             msg.sender == subject || approvedAttesters[msg.sender],
             "AURALIS: not authorized"
