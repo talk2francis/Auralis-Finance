@@ -1,8 +1,10 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["node", "react", "react-dom"],
     "outDir": "dist"
   },
-  "include": ["src", "test", "*.ts", "*.tsx"],
+  "include": ["src", "preview"],
   "exclude": ["node_modules", "dist"]
 }
