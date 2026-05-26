@@ -12,12 +12,21 @@ type DeploymentFile = {
   >;
 };
 
+const contractPaths: Record<keyof DeploymentFile["contracts"], string> = {
+  AuralisAgentRegistry: "contracts/AuralisAgentRegistry.sol:AuralisAgentRegistry",
+  AuralisRatingRegistry: "contracts/AuralisRatingRegistry.sol:AuralisRatingRegistry",
+  AuralisComplianceAttestor:
+    "contracts/AuralisComplianceAttestor.sol:AuralisComplianceAttestor",
+  AuralisPolicyGuard: "contracts/AuralisPolicyGuard.sol:AuralisPolicyGuard",
+};
+
 async function verify(name: keyof DeploymentFile["contracts"], address: string, owner: string) {
   console.log(`Verifying ${name} at ${address}`);
   try {
     await run("verify:verify", {
       address,
       constructorArguments: [owner],
+      contract: contractPaths[name],
     });
     console.log(`Verified ${name}`);
   } catch (err) {
@@ -26,7 +35,14 @@ async function verify(name: keyof DeploymentFile["contracts"], address: string, 
       console.log(`${name} already verified`);
       return;
     }
-    throw err;
+
+    console.warn(`Explorer verification failed for ${name}; trying Sourcify fallback.`);
+    console.warn(message);
+    await run("verify:sourcify", {
+      address,
+      contract: contractPaths[name],
+    });
+    console.log(`Verified ${name} on Sourcify`);
   }
 }
 

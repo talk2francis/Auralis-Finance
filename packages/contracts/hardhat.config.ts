@@ -45,7 +45,10 @@ const config: HardhatUserConfig = {
   // Verification: Mantle Explorer is Blockscout-based; Sourcify is the fallback.
   sourcify: { enabled: true },
   etherscan: {
-    apiKey: { mantle: process.env.MANTLE_EXPLORER_API_KEY || "blockscout" },
+    apiKey: {
+      mantle: process.env.MANTLE_EXPLORER_API_KEY || "blockscout",
+      mantleSepolia: process.env.MANTLE_EXPLORER_API_KEY || "blockscout",
+    },
     customChains: [
       {
         network: "mantle",
@@ -53,6 +56,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://explorer.mantle.xyz/api",
           browserURL: "https://explorer.mantle.xyz",
+        },
+      },
+      {
+        network: "mantleSepolia",
+        chainId: 5003,
+        urls: {
+          apiURL: "https://explorer.sepolia.mantle.xyz/api",
+          browserURL: "https://explorer.sepolia.mantle.xyz",
         },
       },
     ],

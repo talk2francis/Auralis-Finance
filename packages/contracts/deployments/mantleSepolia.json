@@ -1,0 +1,20 @@
+{
+  "network": "mantleSepolia",
+  "chainId": 5003,
+  "deployedAt": "2026-05-26T19:21:19.536Z",
+  "deployer": "0x0C1Fc3B41717a068f836e1B737F3cB0251789783",
+  "owner": "0x0C1Fc3B41717a068f836e1B737F3cB0251789783",
+  "finalBalanceMnt": "99.900456714346465465",
+  "contracts": {
+    "AuralisAgentRegistry": "0x538252815ED51f4fc41F83AE6C79813a3954017F",
+    "AuralisRatingRegistry": "0x9DE22E23D744C53Dd454dbf2D82aDe0F0CcF3AEd",
+    "AuralisComplianceAttestor": "0xF8Ccc61ac5D786cb4EF9fF5b67a9463FFC8fFB4E",
+    "AuralisPolicyGuard": "0xcB22CaA6EB20eA42bB7aE4dcD72EA3B8DB67D609"
+  },
+  "transactions": {
+    "AuralisAgentRegistry": "0x20276ffac2f2fb96a146cc411813d6f9f55f078bfb68d09507681605e6b229f7",
+    "AuralisRatingRegistry": "0x03b409b2fe2a7b9d15ac8fe95bdc29867ba53c33e750c7c9a199237024cddb6a",
+    "AuralisComplianceAttestor": "0x5f0bb54294ad82bed3c635795b56a3ba60f2f346839b86791a79381719f95b99",
+    "AuralisPolicyGuard": "0x436d2fb513207f08e46c576fa7234319d1ffee5552dc3e0776dd4d47967cd49c"
+  }
+}
