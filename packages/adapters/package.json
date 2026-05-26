@@ -2,11 +2,22 @@
   "name": "@auralis/adapters",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "build": "echo build @auralis/adapters",
+    "build": "tsc --noEmit",
     "lint": "echo lint @auralis/adapters",
-    "test": "echo test @auralis/adapters",
-    "typecheck": "echo typecheck @auralis/adapters"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@auralis/types": "workspace:*",
+    "viem": "^2.40.3"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.7",
+    "@types/node": "^25.0.0",
+    "ts-node": "^10.9.2"
   }
 }
