@@ -2,11 +2,21 @@
   "name": "@auralis/contracts",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "build": "echo build @auralis/contracts",
+    "build": "hardhat compile",
+    "compile": "hardhat compile",
     "lint": "echo lint @auralis/contracts",
-    "test": "echo test @auralis/contracts",
-    "typecheck": "echo typecheck @auralis/contracts"
+    "test": "hardhat test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.2",
+    "dotenv": "^17.4.2",
+    "hardhat": "^2.28.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5"
   }
 }
