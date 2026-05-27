@@ -1,5 +1,9 @@
 # Auralis Finance — Smart Contracts
 
+Purpose: document the current Mantle mainnet contracts, addresses, proof functions, and verification status.
+
+Related docs: [Architecture](./ARCHITECTURE.md), [Risk Methodology](./RISK_METHODOLOGY.md), [Compliance Framework](./COMPLIANCE_FRAMEWORK.md), [Agent Design](./AGENT_DESIGN.md), [Security](./SECURITY.md), [Testing](./TESTING.md).
+
 **Chain:** Mantle Mainnet · **chainId 5000** · Solidity `0.8.24` · OpenZeppelin v5 · EVM `cancun`
 
 Auralis deploys **four** contracts. They are deliberately minimal: they store **proofs**
