@@ -30,6 +30,10 @@ Deployment metadata is committed in `packages/contracts/deployments/mantle.json`
 
 - `/` — marketing landing page
 - `/ratings` — public ratings explorer
+- `/ratings/[assetId]` — public rating detail with methodology and proof framing
+- `/methodology` — readable public methodology
+- `/faq` — non-custodial, AI, chain, and business FAQ
+- `/docs` — judge/developer documentation hub
 - `/app/dashboard` — portfolio risk dashboard
 - `/app/compliance` — wallet scan, eligibility matrix, reports, attestations
 - `/app/simulator` — before/after rebalance simulation and policy preview
@@ -60,14 +64,32 @@ packages/ui          shared Auralis UI primitives/components
 docs                 product, contract, scorecard, and judge docs
 ```
 
+## Documentation
+
+- [Judge Guide](docs/JUDGE_GUIDE.md) — 5-minute and 15-minute judging paths
+- [Tutorial](docs/TUTORIAL.md) — USDY closed-loop walkthrough
+- [Architecture](docs/ARCHITECTURE.md) — system layers and flows
+- [Risk Methodology](docs/RISK_METHODOLOGY.md) — seven-dimension rating model
+- [Compliance Framework](docs/COMPLIANCE_FRAMEWORK.md) — eligibility and attestation model
+- [Security](docs/SECURITY.md) — non-custodial model and audit notes
+- [Submission Checklist](docs/SUBMISSION_CHECKLIST.md) — final package checklist
+- [Pitch](docs/PITCH.md) — concise product story
+
 ## Verification gates
 
-Recent gates after the corrected mainnet deploy:
+Recent gates after the corrected mainnet deploy and Phase 3 polish:
 
 ```text
-pnpm exec hardhat test        # 11 passing
-pnpm exec tsc --noEmit        # contracts package typecheck
-Sourcify metadata HTTP 200    # all four mainnet contracts
+pnpm -F @auralis/web build      # passed; Sentry/OTEL warning only
+18 route smoke checks           # 200 on local dev server
+4 API smoke checks              # 200 on local dev server
+US compliance scan              # 8 verdicts, 2 restricted, 0 denied
+Simulator API                   # proposal true; policy blocked imbalanced weights
+Decision API                    # generated deterministic decision hash
+pnpm exec hardhat test          # 11 passing
+pnpm exec hardhat coverage      # high coverage
+Slither                         # 23 contracts, 12 reviewed findings
+Sourcify metadata HTTP 200      # all four mainnet contracts
 ```
 
 ## 中文摘要

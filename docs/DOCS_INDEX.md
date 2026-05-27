@@ -13,19 +13,21 @@ equivalent and are the credibility centrepieces.
 | 1 | `README.md` *(repo root)* | E5 | ✅ drafted |
 | 2 | `CONTRACTS.md` | E1 | ✅ drafted |
 | 3 | `UI_SPEC.md` | E4 | ✅ drafted |
-| 4 | `ARCHITECTURE.md` | E1 | brief below |
-| 5 | `RISK_METHODOLOGY.md` | E2 | brief below ⭐ |
-| 6 | `COMPLIANCE_FRAMEWORK.md` | E2 | brief below ⭐ |
-| 7 | `AGENT_DESIGN.md` | E2 | brief below |
-| 8 | `API.md` | E5 | brief below |
-| 9 | `SECURITY.md` | E1 | brief below |
-| 10 | `DEPLOYMENT.md` | E1 | brief below |
-| 11 | `JUDGE_GUIDE.md` | E5 | brief below ⭐ |
-| 12 | `TESTING.md` | E1 | brief below |
-| 13 | `DECISIONS.md` | E1 | brief below |
-| 14 | `TUTORIAL.md` | E5 | brief below |
-| 15 | `ROADMAP.md` | E5 | brief below |
-| 16 | `video-script.md` | E4/E5 | brief below |
+| 4 | `ARCHITECTURE.md` | E1 | ✅ drafted |
+| 5 | `RISK_METHODOLOGY.md` | E2 | ✅ drafted ⭐ |
+| 6 | `COMPLIANCE_FRAMEWORK.md` | E2 | ✅ drafted ⭐ |
+| 7 | `AGENT_DESIGN.md` | E2 | ✅ drafted |
+| 8 | `API.md` | E5 | ✅ drafted |
+| 9 | `SECURITY.md` | E1 | ✅ drafted |
+| 10 | `DEPLOYMENT.md` | E1 | ✅ drafted |
+| 11 | `JUDGE_GUIDE.md` | E5 | ✅ drafted ⭐ |
+| 12 | `TESTING.md` | E1 | ✅ drafted |
+| 13 | `DECISIONS.md` | E1 | ✅ drafted |
+| 14 | `TUTORIAL.md` | E5 | ✅ drafted |
+| 15 | `ROADMAP.md` | E5 | ✅ drafted |
+| 16 | `video-script.md` | E4/E5 | ✅ drafted |
+| 17 | `SUBMISSION_CHECKLIST.md` | E5 | ✅ drafted |
+| 18 | `PITCH.md` | E5 | ✅ drafted |
 
 ---
 
