@@ -6,6 +6,10 @@ Related docs: [Judge Guide](./JUDGE_GUIDE.md), [Tutorial](./TUTORIAL.md), [Video
 
 ## Required links
 
+Domain setup: use `https://auralisfinance.xyz` as the canonical live app URL once Namecheap DNS points to Vercel. See [Domain Setup](./DOMAIN_SETUP_NAMECHEAP.md).
+
+## Required links
+
 - GitHub repository: `https://github.com/talk2francis/Auralis-Finance`
 - Live app: add the final Vercel URL before submission.
 - Demo video: add the final uploaded video URL before submission.

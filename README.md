@@ -74,6 +74,9 @@ docs                 product, contract, scorecard, and judge docs
 - [Security](docs/SECURITY.md) — non-custodial model and audit notes
 - [Submission Checklist](docs/SUBMISSION_CHECKLIST.md) — final package checklist
 - [Pitch](docs/PITCH.md) — concise product story
+- [Phase 4 Assets](docs/PHASE4_ASSETS.md) — X thread and DoraHacks copy drafts
+- [Domain Setup](docs/DOMAIN_SETUP_NAMECHEAP.md) — Namecheap → Vercel DNS instructions
+- [Demo Day Runbook](docs/DEMO_DAY_RUNBOOK.md) — timed demo and fallback plan
 
 ## Verification gates
 
