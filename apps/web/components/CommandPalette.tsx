@@ -13,6 +13,8 @@ const items = [
   { kind: "Route", label: "Policies", href: "/app/policies", hint: "Guardrails" },
   { kind: "Route", label: "Decisions", href: "/app/decisions", hint: "Proof ledger" },
   { kind: "Route", label: "Agent", href: "/app/agent", hint: "Skills and identity" },
+  { kind: "Route", label: "Integrations", href: "/app/integrations", hint: "Connected services and health" },
+  { kind: "Route", label: "Settings", href: "/app/settings", hint: "Profile, jurisdiction, risk, and controls" },
   ...["usdy", "meth", "usde"].map((asset) => ({ kind: "Asset", label: asset.toUpperCase(), href: `/app/opportunities/${asset}`, hint: "Open asset detail" })),
   ...["rate.asset", "compliance.scan", "policy.check", "decision.log", "attestation.mint"].map((skill) => ({ kind: "Skill", label: skill, href: `/app/agent?run=${skill}`, hint: "Inspect skill" })),
   { kind: "Decision", label: "Latest rebalance proof", href: "/app/decisions", hint: "Open decision detail" },

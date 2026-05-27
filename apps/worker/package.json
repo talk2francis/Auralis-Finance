@@ -8,5 +8,11 @@
     "lint": "echo lint @auralis/worker",
     "test": "echo test @auralis/worker",
     "typecheck": "echo typecheck @auralis/worker"
+  },
+  "dependencies": {
+    "@sentry/node": "^10.54.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1"
   }
 }
